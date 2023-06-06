@@ -1,3 +1,12 @@
 {
-    
+    "employees":[
+        {"name":"Dlozi",
+        "surname":"Mthethwa",
+        "email":"dlozi.mthethwa@gmail.com",
+        "bio":"Zulu Techie. Comfort food maker. R&B and SciFi fan. A 9.Sagittarius with a Virgo moon.",
+        "pic":"",
+        "birthday":"09/12/1990",
+        "emp_num":"AXZ00516"
+        }
+    ]
 }
