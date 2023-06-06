@@ -4,13 +4,23 @@
     box-sizing: border-box;
 }
 
-.imgSize{
+.pic{
     width: 100px;
     width: 100px;
+    border-radius: 50%;
+    margin-right: 2vw;
 }
 
-.flexContainer{
+span{
+    font-style: italic;
+}
+
+.flexHorizontal{
     display: flex;
-    
+}
+
+.formStyles{
+    align-self: center;
+    width: 50vw;
 }
 
