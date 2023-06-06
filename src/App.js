@@ -21,7 +21,7 @@ function App() {
   }, []);
 
   return (
-    <div>
+    <div className='flexContainer'>
       {employees.map((employees) => (
         <div key={employees.id}>
           <h3>

@@ -8,3 +8,9 @@
     width: 100px;
     width: 100px;
 }
+
+.flexContainer{
+    display: flex;
+    
+}
+
