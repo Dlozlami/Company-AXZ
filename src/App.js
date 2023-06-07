@@ -1,13 +1,13 @@
 import './App.css';
-import ImageUpload from './components/ImageUpload';
-import AddEmployees from './components/addEmployee';
+import Navbar from './components/navBar';
+import MainContent from './components/mainContent';
 
 
 export default function App() {
   return(
-    <div>
-      <AddEmployees/>
-      <ImageUpload/>
-    </div>
+    <>
+      <Navbar/>
+      <MainContent/>
+    </>
   );
 }

@@ -2,6 +2,24 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    /* border: 3px red solid; */
+}
+
+body{
+    background-image: url('../public/assets/images/bg.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+nav{
+    display: flex;
+    height: 10vh;
+    align-items: center;
+}
+
+#mainContent{
+    display: flex;
+    height: 90vh;
 }
 
 .pic{
@@ -20,7 +38,37 @@ span{
 }
 
 .formStyles{
-    align-self: center;
-    width: 50vw;
+    justify-content: center;
+    width: 30%;
+    padding: 50px;
 }
+
+.modernButton{
+    background-color: transparent;
+    padding: 10px;
+    border: 1px black solid;
+    color: black;
+}
+
+nav div button{
+    cursor: pointer;
+}
+
+#logo{
+    align-self: start;
+    justify-self: unset;
+}
+
+.sideArtPanelAdd{
+    background-image: url('../public/assets/images/typewriter.jpg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 30%;
+    color: #d2ff58;
+}
+
+div h2{
+    color: #d2ff58;
+}
+
 
