@@ -10,6 +10,17 @@
       "birthday": "09/12/1990",
       "position": "UI/UX Designer",
       "phone": "815-956-2385"
+    },
+    {
+      "id": "AXZ5884892",
+      "name": "John",
+      "surname": "Doe",
+      "email": "johndoe@example.com",
+      "bio": "",
+      "pic": "",
+      "birthday": "",
+      "position": "",
+      "phone": ""
     }
   ]
 }
