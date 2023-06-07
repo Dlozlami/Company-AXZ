@@ -4,6 +4,20 @@ import axios from "axios";
 //This component will known as State 2
 
 export default function DisplayEmployees({whosOnDisplay,setWhosOnDisplay}){
+    const [selectedImage, setSelectedImage] = useState(null);
+
+    const handleImageUpload = (event) => {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+  
+      reader.onload = () => {
+        setSelectedImage(reader.result);
+      };
+  
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    };
 
     const [employees, setEmployees] = useState([]);
     const [isPopupOpen, setPopupOpen] = useState(false);
@@ -92,7 +106,7 @@ export default function DisplayEmployees({whosOnDisplay,setWhosOnDisplay}){
             surname: employee.surname,
             email: employee.email,
             bio: employee.bio,
-            pic: employee.pic,
+            pic: selectedImage,
             birthday: employee.birthday,
             position: employee.position,
             phone: employee.phone,
@@ -102,7 +116,7 @@ export default function DisplayEmployees({whosOnDisplay,setWhosOnDisplay}){
     return (
         <div className="flexHorizontal w3-card-4 w3-round-large" style={{width:'95vw',height:'80vh'}}>
             <div className="sideArtPanelDisplay">
-                <h2>Show all employees</h2>
+                <h1 style={{fontWeight:'900'}}>Show All Employees</h1>
                 <h4>The team leading AXZ to the Future.</h4>
                 <br />
                 <button onClick={changeDisplay} className="limeButton w3-btn w3-border w3-border-black w3-card-4 w3-round-large" style={{width:'20vw',marginTop:'50vh'}}>Add a new Employee</button>                
@@ -126,7 +140,7 @@ export default function DisplayEmployees({whosOnDisplay,setWhosOnDisplay}){
                     <input type="text" id="bio"  value={inputValues.bio} onChange={handleChange} />
                     <br />
                     <label htmlFor="pic">Upload photo</label>
-                    <input type="url" id="pic"  value={inputValues.pic} onChange={handleChange} />
+                    <input type="file" accept="image/*" id="pic" value={inputValues.pic} onChange={handleImageUpload} />
                     <br />
                     <label htmlFor="birthday">Date of birth</label>
                     <input type="date" id="birthday"  value={inputValues.birthday} onChange={handleChange} />

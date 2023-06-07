@@ -7,6 +7,21 @@ import React, { useState } from "react";
 
 export default function AddEmployee({whosOnDisplay,setWhosOnDisplay}) {
 
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      setSelectedImage(reader.result);
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
+
   const generateRandomString = () => {
     const characters = '0123456789';
     let randomString = 'AXZ';
@@ -39,7 +54,7 @@ export default function AddEmployee({whosOnDisplay,setWhosOnDisplay}) {
       surname: document.getElementById("surname").value,
       email: document.getElementById("email").value,
       bio: document.getElementById("bio").value,
-      pic: document.getElementById("pic").value,
+      pic: selectedImage,
       birthday: document.getElementById("birthday").value,
       position: document.getElementById("position").value,
       phone: document.getElementById("phone").value,
@@ -65,7 +80,8 @@ export default function AddEmployee({whosOnDisplay,setWhosOnDisplay}) {
   return (
     <div className="flexHorizontal w3-card-4 w3-round-large" style={{width:'80vw'}}>
       <div className="sideArtPanelAdd">
-        <h2>Add a new employee</h2>
+        <h1 style={{fontWeight:'900'}}>Welcome to AXZ</h1>
+        <h4>Add a new employee</h4>
       </div>
       <div className="formStyles">
         <label htmlFor="name">Name</label>
@@ -81,7 +97,7 @@ export default function AddEmployee({whosOnDisplay,setWhosOnDisplay}) {
         <input type="text" id="bio" />
         <br /><br />
         <label htmlFor="pic">Upload photo</label>
-        <input type="url" id="pic" />
+        <input type="file" accept="image/*" id="pic" onChange={handleImageUpload} />
         <br /><br />
         <label htmlFor="birthday">Date of birth</label>
         <input type="date" id="birthday" />
