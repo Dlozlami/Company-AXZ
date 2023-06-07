@@ -119,3 +119,7 @@ input{
 .navLink{
     background-color: transparent;
 }
+
+.popup{
+    display: flex;
+}

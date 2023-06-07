@@ -13,14 +13,14 @@
     },
     {
       "id": "AXZ5884892",
-      "name": "John",
+      "name": "Maxwell J",
       "surname": "Doe",
       "email": "johndoe@example.com",
-      "bio": "",
+      "bio": "He's tall hes mean",
       "pic": "",
       "birthday": "",
-      "position": "",
-      "phone": ""
+      "position": "CEO",
+      "phone": "083-963-5454"
     }
   ]
 }
