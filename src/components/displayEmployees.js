@@ -143,7 +143,7 @@ export default function DisplayEmployees({whosOnDisplay,setWhosOnDisplay}){
                     </div>
                 </div>
                 :
-                <div id='employeeList' className="flexVertical" style={{width:'50vw',overflow:'scroll',padding:'10px'}}>
+                <div id='employeeList' className="flexVertical" style={{width:'50vw',overflow:'auto',padding:'10px'}}>
                     {employees.map((employees) => (
                     <div key={employees.id} className='profile w3-panel w3-white w3-round-large' style={{padding:'10px',alignItems:'center'}}>
                         <div><img src={employees.pic} alt={employees.name} className='pic'></img></div>
