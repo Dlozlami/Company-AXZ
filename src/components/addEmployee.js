@@ -78,7 +78,7 @@ export default function AddEmployee({whosOnDisplay,setWhosOnDisplay}) {
   };
 
   return (
-    <div className="flexHorizontal w3-card-4 w3- -large" style={{width:'90vw'}}>
+    <div className="flexHorizontal w3-card-4 w3- -large" style={{width:'90vw',marginBottom:'5vh'}}>
       <div className="sideArtPanelAdd">
         <h1 style={{fontWeight:'900',paddingLeft:"0.5vw",backgroundColor:'black'}}>Welcome to AXZ</h1>
         <h4 style={{paddingLeft:"0.5vw",backgroundColor:'black'}}>Add a new employee</h4>
