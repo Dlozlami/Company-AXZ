@@ -7,16 +7,18 @@ export default function DisplayEmployees({whosOnDisplay,setWhosOnDisplay}){
     const [selectedImage, setSelectedImage] = useState(null);
 
     const handleImageUpload = (event) => {
+      
       const file = event.target.files[0];
       const reader = new FileReader();
-  
-      reader.onload = () => {
-        setSelectedImage(reader.result);
-      };
-  
       if (file) {
         reader.readAsDataURL(file);
-      }
+      }      
+      reader.onload = () => {
+        setSelectedImage(reader.result);
+        console.log("Result below")
+        console.log(selectedImage)        
+      };
+  
     };
 
     const [employees, setEmployees] = useState([]);
@@ -37,7 +39,6 @@ export default function DisplayEmployees({whosOnDisplay,setWhosOnDisplay}){
 
     const changeDisplay = ()=>{
         setWhosOnDisplay(1);
-        console.log(whosOnDisplay);
     };
 
     //GET DATA OUT OF JSON SERVER===============
@@ -90,6 +91,7 @@ export default function DisplayEmployees({whosOnDisplay,setWhosOnDisplay}){
       }
 
     const add = () => {
+        console.log(selectedImage?"Pic in":"None");
         axios.patch("http://localhost:4000/Employees/"+inputValues.id, inputValues)
         .then(response => console.log(response.data))
         .catch(error => console.error(error));
@@ -99,6 +101,7 @@ export default function DisplayEmployees({whosOnDisplay,setWhosOnDisplay}){
     
 
     const update = (employee)=>{
+        
         setPopupOpen(true);
         setInputValues({
             id:employee.id,
@@ -116,15 +119,15 @@ export default function DisplayEmployees({whosOnDisplay,setWhosOnDisplay}){
     return (
         <div className="flexHorizontal w3-card-4 w3-round-large" style={{width:'95vw',height:'80vh'}}>
             <div className="sideArtPanelDisplay">
-                <h1 style={{fontWeight:'900'}}>Show All Employees</h1>
-                <h4>The team leading AXZ to the Future.</h4>
+                <h1 style={{fontWeight:'900',paddingLeft:"0.5vw",backgroundColor:'black'}}>Show All Employees</h1>
+                <h4 style={{paddingLeft:"0.5vw",backgroundColor:'black'}} >The team leading AXZ to the Future.</h4>
                 <br />
                 <button onClick={changeDisplay} className="limeButton w3-btn w3-border w3-border-black w3-card-4 w3-round-large" style={{width:'20vw',marginTop:'30vh'}}>Add a new Employee</button>                
             </div>
             {isPopupOpen?
-                <div className="popup" style={{width:'50vw',padding:'10px'}}>
+                <div className="popup" style={{width:'50vw',padding:'10px',overflow:'auto'}}>
                     <div style={{backgroundColor:'white',padding:'50px',justifyContent:'center',width:'50vw'}}>
-                    <label htmlFor="name">Name</label>
+                    <label htmlFor="name">Employee Number:</label>
                     <input type="text" id="id"  value={inputValues.id} readOnly/>
                     <br />
                     <label htmlFor="name">Name</label>
@@ -143,7 +146,7 @@ export default function DisplayEmployees({whosOnDisplay,setWhosOnDisplay}){
                     <input type="file" accept="image/*" id="pic" onChange={handleImageUpload} />
                     <br />
                     <label htmlFor="birthday">Date of birth</label>
-                    <input type="date" id="birthday"  value={inputValues.birthday} onChange={handleChange} />
+                    <input type="text" id="birthday"  value={inputValues.birthday} placeholder="e.g. 20/12/1952" onChange={handleChange} />
                     <br />
                     <label htmlFor="position">Job title</label>
                     <input type="text" id="position"  value={inputValues.position} onChange={handleChange} />
@@ -152,8 +155,8 @@ export default function DisplayEmployees({whosOnDisplay,setWhosOnDisplay}){
                     <input type="text" id="phone"  value={inputValues.phone} onChange={handleChange} />
                     <br /><br />
                     <button onClick={add} style={{ marginRight: '5vw' }} className="limeButton w3-btn w3-border w3-border-black w3-round-large">
-                        Add Employee
-                    </button>
+                        Update Employee
+                    </button><br /><br /><br />
                     </div>
                 </div>
                 :
@@ -166,7 +169,7 @@ export default function DisplayEmployees({whosOnDisplay,setWhosOnDisplay}){
                                 {employees.name} {employees.surname} | {employees.position}
                             </h2>
                             <h4>
-                                <span style={{color:'gray'}}>Employees ID: {employees.id}</span> 
+                                <span style={{color:'gray'}}>Employees ID: {employees.id} &bull; D.O.B: {employees.birthday}</span> 
                             </h4>
                             <p className='bio'>{employees.bio}</p>
                             <span>&#x2709; {employees.email}</span> <span> &bull; &#x260F; {employees.phone}</span> 

@@ -82,6 +82,7 @@ nav div button{
 
 .sideArtPanelAdd{
     background-image: url('../public/assets/images/desk.jpg');
+    
     background-repeat: no-repeat;
     background-size: cover;
     width: 50%;
@@ -91,6 +92,7 @@ nav div button{
 
 .sideArtPanelDisplay{
     background-image: url('../public/assets/images/damir-kopezhanov-nC6CyrVBtkU-unsplash.jpg');
+    background-position: bottom center;
     background-repeat: no-repeat;
     background-size: cover;
     width: 50%;

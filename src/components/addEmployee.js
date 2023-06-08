@@ -11,6 +11,7 @@ export default function AddEmployee({whosOnDisplay,setWhosOnDisplay}) {
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
+    
     const reader = new FileReader();
 
     reader.onload = () => {
@@ -19,6 +20,7 @@ export default function AddEmployee({whosOnDisplay,setWhosOnDisplay}) {
 
     if (file) {
       reader.readAsDataURL(file);
+      
     }
   };
 
@@ -48,6 +50,8 @@ export default function AddEmployee({whosOnDisplay,setWhosOnDisplay}) {
   });
 
   const add = () => {
+    console.log("Add Employee");
+    console.log(selectedImage);
     const updatedInputValues = {
       id:generateRandomString(),
       name: document.getElementById("name").value,
@@ -72,18 +76,16 @@ export default function AddEmployee({whosOnDisplay,setWhosOnDisplay}) {
   };
 
   const showAll = ()=>{
-
     setWhosOnDisplay(2);
-    console.log(whosOnDisplay);
   };
 
   return (
-    <div className="flexHorizontal w3-card-4 w3- -large" style={{width:'90vw',marginBottom:'5vh'}}>
+    <div className="flexHorizontal w3-card-4 w3- -large" style={{width:'90vw',height:'80vh',marginBottom:'5vh'}}>
       <div className="sideArtPanelAdd">
         <h1 style={{fontWeight:'900',paddingLeft:"0.5vw",backgroundColor:'black'}}>Welcome to AXZ</h1>
         <h4 style={{paddingLeft:"0.5vw",backgroundColor:'black'}}>Add a new employee</h4>
       </div>
-      <div className="formStyles">
+      <div className="formStyles" style={{overflow:'auto'}}>
         <label htmlFor="name">Name</label>
         <input type="text" id="name" />
         <br /><br />
@@ -100,7 +102,7 @@ export default function AddEmployee({whosOnDisplay,setWhosOnDisplay}) {
         <input type="file" accept="image/*" id="pic" onChange={handleImageUpload} />
         <br /><br />
         <label htmlFor="birthday">Date of birth</label>
-        <input type="date" id="birthday" />
+        <input type="text" id="birthday" placeholder="e.g. 20/12/1952" />
         <br /><br />
         <label htmlFor="position">Job title</label>
         <input type="text" id="position" />
