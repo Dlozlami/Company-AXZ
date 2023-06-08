@@ -22,11 +22,12 @@ nav{
     display: flex;
     height: 10vh;
     align-items: center;
+    margin-bottom: 5vh;
 }
 
 #mainContent{
     display: flex;
-    height: 90vh;
+
     align-items: center;
     justify-content: center;
 }

@@ -119,7 +119,7 @@ export default function DisplayEmployees({whosOnDisplay,setWhosOnDisplay}){
                 <h1 style={{fontWeight:'900'}}>Show All Employees</h1>
                 <h4>The team leading AXZ to the Future.</h4>
                 <br />
-                <button onClick={changeDisplay} className="limeButton w3-btn w3-border w3-border-black w3-card-4 w3-round-large" style={{width:'20vw',marginTop:'50vh'}}>Add a new Employee</button>                
+                <button onClick={changeDisplay} className="limeButton w3-btn w3-border w3-border-black w3-card-4 w3-round-large" style={{width:'20vw',marginTop:'30vh'}}>Add a new Employee</button>                
             </div>
             {isPopupOpen?
                 <div className="popup" style={{width:'50vw',padding:'10px'}}>
@@ -140,7 +140,7 @@ export default function DisplayEmployees({whosOnDisplay,setWhosOnDisplay}){
                     <input type="text" id="bio"  value={inputValues.bio} onChange={handleChange} />
                     <br />
                     <label htmlFor="pic">Upload photo</label>
-                    <input type="file" accept="image/*" id="pic" value={inputValues.pic} onChange={handleImageUpload} />
+                    <input type="file" accept="image/*" id="pic" onChange={handleImageUpload} />
                     <br />
                     <label htmlFor="birthday">Date of birth</label>
                     <input type="date" id="birthday"  value={inputValues.birthday} onChange={handleChange} />
