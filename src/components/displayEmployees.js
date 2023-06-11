@@ -5,22 +5,27 @@ import axios from "axios";
 
 export default function DisplayEmployees({whosOnDisplay,setWhosOnDisplay}){
     const [selectedImage, setSelectedImage] = useState(null);
+    let url;
 
     const handleImageUpload = (event) => {
       
       const file = event.target.files[0];
-      const reader = new FileReader();
-      if (file) {
-        reader.readAsDataURL(file);
-      }      
-      reader.onload = () => {
-        setSelectedImage(reader.result);
-        console.log("Result below")
-        console.log(selectedImage)        
+      url = URL.createObjectURL(file);
+      const photoReader = new FileReader();  
+      console.log("1 State: "+photoReader.readyState);
+
+      photoReader.onload = () => {
+        photoReader.readAsDataURL(file);
+        console.log("2 State: "+photoReader.readyState);
+      }
+
+      if (file) { 
+        console.log("3 State: "+photoReader.readyState);
+        setSelectedImage(photoReader.result);
       };
   
     };
-
+    
     const [employees, setEmployees] = useState([]);
     const [isPopupOpen, setPopupOpen] = useState(false);
     const [inputValues, setInputValues] = useState({
@@ -81,7 +86,9 @@ export default function DisplayEmployees({whosOnDisplay,setWhosOnDisplay}){
         });
     }
 
-    //=========================================
+    //=========================================End of Remove
+
+
     const handleChange = (event) => {
         const { id, value } = event.target;
         setInputValues((prevInputValues) => ({
@@ -91,7 +98,7 @@ export default function DisplayEmployees({whosOnDisplay,setWhosOnDisplay}){
       }
 
     const add = () => {
-        console.log(selectedImage?"Pic in":"None");
+        console.log("I patch the entry, add()");
         axios.patch("http://localhost:4000/Employees/"+inputValues.id, inputValues)
         .then(response => console.log(response.data))
         .catch(error => console.error(error));
@@ -117,12 +124,11 @@ export default function DisplayEmployees({whosOnDisplay,setWhosOnDisplay}){
     }
 
     return (
-        <div className="flexHorizontal w3-card-4 w3-round-large" style={{width:'95vw',height:'80vh'}}>
+        <div className="flexHorizontal w3-card-4 w3-round-large" style={{width:'95vw',height:'80vh',backgroundColor:'#f7f7f7'}}>
             <div className="sideArtPanelDisplay">
                 <h1 style={{fontWeight:'900',paddingLeft:"0.5vw",backgroundColor:'black'}}>Show All Employees</h1>
                 <h4 style={{paddingLeft:"0.5vw",backgroundColor:'black'}} >The team leading AXZ to the Future.</h4>
-                <br />
-                <button onClick={changeDisplay} className="limeButton w3-btn w3-border w3-border-black w3-card-4 w3-round-large" style={{width:'20vw',marginTop:'30vh'}}>Add a new Employee</button>                
+                <button onClick={changeDisplay} className="limeButton w3-btn w3-border w3-border-black w3-card-4 w3-round-large" style={{marginTop:'30vh'}}>Add a new Employee</button>                
             </div>
             {isPopupOpen?
                 <div className="popup" style={{width:'50vw',padding:'10px',overflow:'auto'}}>
@@ -163,20 +169,16 @@ export default function DisplayEmployees({whosOnDisplay,setWhosOnDisplay}){
                 <div id='employeeList' className="flexVertical" style={{width:'50vw',overflow:'auto',padding:'10px'}}>
                     {employees.map((employees) => (
                     <div key={employees.id} className='profile w3-panel w3-white w3-round-large' style={{padding:'10px',alignItems:'center'}}>
-                        <div><img src={employees.pic} alt={employees.name} className='pic'></img></div>
-                        <div style={{marginRight:'2vw'}}>
-                            <h2>
-                                {employees.name} {employees.surname} | {employees.position}
-                            </h2>
-                            <h4>
-                                <span style={{color:'gray'}}>Employees ID: {employees.id} &bull; D.O.B: {employees.birthday}</span> 
-                            </h4>
-                            <p className='bio'>{employees.bio}</p>
-                            <span>&#x2709; {employees.email}</span> <span> &bull; &#x260F; {employees.phone}</span> 
+                        <div style={{width:'20vw'}}><img src={employees.pic} alt={employees.name} className='pic'></img></div>
+                        <div style={{width:'63vw'}}>
+                          <span style={{fontWeight:'700',marginRight:'2vw'}}>  {employees.name} {employees.surname}</span> <span style={{color:'gray'}}>{employees.position}</span><br/>
+                          <span className='additionalInfo' style={{color:'gray',fontSize:'small'}}>Employees ID: {employees.id} &bull; D.O.B: {employees.birthday}</span> 
+                          <p className='bio'>{employees.bio}</p>
+                          <span className='additionalInfo'>&#x2709; {employees.email}</span> <span className='additionalInfo'> &bull; &#x260F; {employees.phone}</span> 
                         </div>
-                        <div>
-                            <button className='w3-btn w3-white w3-border w3-border-red w3-round-large w3-text-red' onClick={() => remove(employees.id)}>Remove</button><br/><br/>
-                            <button className='w3-btn w3-white w3-border w3-border-green w3-round-large w3-text-green'  onClick={() => update(employees)}>Update</button>
+                        <div style={{width:'17vw',display:'flex',flexDirection:'column',alignItems:"end"}}>
+                            <button className='w3-btn w3-white w3-border w3-border-red w3-round-large w3-text-red' onClick={() => remove(employees.id)}>Remove</button><br/>
+                            <button className='w3-btn w3-white w3-border w3-border-green w3-round-large w3-text-green'  onClick={() => update(employees)}>Update </button>
                         </div>
                     </div>
                     ))}

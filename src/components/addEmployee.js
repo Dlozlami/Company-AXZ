@@ -11,16 +11,14 @@ export default function AddEmployee({whosOnDisplay,setWhosOnDisplay}) {
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
-    
     const reader = new FileReader();
-
+    
     reader.onload = () => {
       setSelectedImage(reader.result);
     };
 
     if (file) {
       reader.readAsDataURL(file);
-      
     }
   };
 
@@ -50,8 +48,6 @@ export default function AddEmployee({whosOnDisplay,setWhosOnDisplay}) {
   });
 
   const add = () => {
-    console.log("Add Employee");
-    console.log(selectedImage);
     const updatedInputValues = {
       id:generateRandomString(),
       name: document.getElementById("name").value,
@@ -80,10 +76,11 @@ export default function AddEmployee({whosOnDisplay,setWhosOnDisplay}) {
   };
 
   return (
-    <div className="flexHorizontal w3-card-4 w3- -large" style={{width:'90vw',height:'80vh',marginBottom:'5vh'}}>
+    <div className="flexHorizontal w3-card-4 w3- -large" style={{width:'95vw',height:'80vh',marginBottom:'5vh'}}>
       <div className="sideArtPanelAdd">
         <h1 style={{fontWeight:'900',paddingLeft:"0.5vw",backgroundColor:'black'}}>Welcome to AXZ</h1>
         <h4 style={{paddingLeft:"0.5vw",backgroundColor:'black'}}>Add a new employee</h4>
+        <button onClick={showAll} className="limeButton w3-btn w3-border w3-border-black w3-round-large" style={{marginTop:'30vh'}}>Display All Employees</button>
       </div>
       <div className="formStyles" style={{overflow:'auto'}}>
         <label htmlFor="name">Name</label>
@@ -111,7 +108,6 @@ export default function AddEmployee({whosOnDisplay,setWhosOnDisplay}) {
         <input type="text" id="phone" />
         <br /><br />
         <button onClick={add} style={{marginRight:'5vw'}} className="limeButton w3-btn w3-border w3-border-black w3-round-large">Add Employee</button> 
-        <button onClick={showAll} className="limeButton w3-btn w3-border w3-border-black w3-round-large">Display All Employees</button>
       </div>
     </div>
   );

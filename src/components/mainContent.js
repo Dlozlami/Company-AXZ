@@ -8,7 +8,7 @@ export default function MainContent() {
   if(whosOnDisplay===2)
   {
     return(<div id="mainContent"><DisplayEmployees whosOnDisplay={whosOnDisplay} setWhosOnDisplay={setWhosOnDisplay}/></div>);
-  } 
-  return(<div id="mainContent"><AddEmployee whosOnDisplay={whosOnDisplay} setWhosOnDisplay={setWhosOnDisplay}/></div>);
+  }
 
+  return(<div id="mainContent"><AddEmployee whosOnDisplay={whosOnDisplay} setWhosOnDisplay={setWhosOnDisplay}/></div>);
 }

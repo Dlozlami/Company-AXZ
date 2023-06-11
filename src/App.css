@@ -20,14 +20,15 @@ body{
 
 nav{
     display: flex;
+    width: 95vw;
     height: 10vh;
     align-items: center;
+    justify-self: right;
     margin-bottom: 5vh;
 }
 
 #mainContent{
     display: flex;
-
     align-items: center;
     justify-content: center;
 }
@@ -35,11 +36,10 @@ nav{
 .pic{
     width: 200px;
     width: 100px;
-    margin-right: 2vw;
     border-radius: 50%;
 }
 
-span{
+.additionalInfo{
     font-style: italic;
 }
 
@@ -59,7 +59,7 @@ span{
 
 .formStyles{
     justify-content: center;
-    width: 50%;
+    width: 40%;
     padding: 50px;
     background-color: whitesmoke;
 }
@@ -69,8 +69,7 @@ nav div button{
 }
 
 #logo{
-    align-self: start;
-    justify-self: unset;
+    /* align-self: start; */
     background-color: black;
     padding: 10px;
     border: 1px black solid;
@@ -85,7 +84,7 @@ nav div button{
     
     background-repeat: no-repeat;
     background-size: cover;
-    width: 50%;
+    width: 60%;
     color: #d2ff58;
     padding: 2%;
 }
