@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import { useDispatch, useSelector } from 'react-redux';
-//import {getData} from '../features/login/loginSlice'
+import {updateList,remove}  from '../features/employees/employeesSlice'
 
 
 export default function Employees(){
@@ -65,29 +65,6 @@ export default function Employees(){
     
     //=========================================
 
-    //REMOVE AN EMPLOYEE FROM THE JSON SERVER
-    const remove = (emp_num)=>{
-        axios.delete("http://localhost:5000/employees/"+emp_num)
-        .then(response => {
-        console.log(response.data);
-        setEmployeeListReload(!employeeListReload);
-        })
-        .catch(error => {
-        if (error.response) {
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
-        } else if (error.request) {
-            console.log(error.request);
-        } else {
-            console.log('Error', error.message);
-        }
-        console.log(error.config);
-        });
-    }
-
-    //=========================================End of Remove
-
 
     const handleChange = (event) => {
         const { id, value } = event.target;
@@ -98,16 +75,13 @@ export default function Employees(){
       }
 
     const add = () => {
-        axios.patch("http://localhost:5000/employees/"+inputValues.id, inputValues)
-        .then(response => console.log(response.data))
-        .catch(error => console.error(error));
+        dispatch(updateList(inputValues));
         setEmployeeListReload(!employeeListReload);
         setPopupOpen(false);
       };
     
 
     const update = (employee)=>{
-        
         setPopupOpen(true);
         setInputValues({
             id:employee.id,
@@ -175,7 +149,7 @@ export default function Employees(){
                           <span className='additionalInfo'>&#x2709; {employees.email}</span> <span className='additionalInfo'> &bull; &#x260F; {employees.phone}</span> 
                         </div>
                         <div style={{width:'17vw',display:'flex',flexDirection:'column',alignItems:"end"}}>
-                            <button className='w3-btn w3-white w3-border w3-border-red w3-round-large w3-text-red' onClick={() => remove(employees.id)}>Remove</button><br/>
+                            <button className='w3-btn w3-white w3-border w3-border-red w3-round-large w3-text-red' onClick={() => dispatch(remove(employees.id))}>Remove</button><br/>
                             <button className='w3-btn w3-white w3-border w3-border-green w3-round-large w3-text-green'  onClick={() => update(employees)}>Update </button>
                         </div>
                     </div>

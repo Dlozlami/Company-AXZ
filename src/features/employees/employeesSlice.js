@@ -2,6 +2,7 @@ import axios from "axios";
 import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
 
 
+
 const initialState = {
   taskAdded:false,
   taskUpdated:false,
@@ -10,12 +11,10 @@ const initialState = {
 
 export const updateList = createAsyncThunk(
   'employees/updateList',
-  async (newList, thunkAPI) => {
-    const { userData } = thunkAPI.getState().login;
-    const url = 'http://localhost:5000/accounts/'+userData.id;
-    console.log("newList");
+  async (employee, thunkAPI) => {
+    const url = 'http://localhost:5000/employees/'+employee.id;
     try {
-      await axios.patch(url, { list: newList });
+      await axios.patch(url,employee);
       thunkAPI.dispatch(setTaskUpdatedTemporary(true));
       setTimeout(() => {
         thunkAPI.dispatch(setTaskUpdatedTemporary(false));
@@ -27,32 +26,12 @@ export const updateList = createAsyncThunk(
   }
 );
 
-export const addToList = createAsyncThunk(
-  'employees/addToList',
-  async (newList, thunkAPI) => {
-    const { userData } = thunkAPI.getState().login;
-    const url = 'http://localhost:5000/accounts/'+userData.id;
-    try {
-      await axios.patch(url, { list: newList });
-      thunkAPI.dispatch(setTaskAddedTemporary(true));
-      setTimeout(() => {
-        thunkAPI.dispatch(setTaskAddedTemporary(false));
-      }, 10000); // 10 seconds delay
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
-  }
-);
-
 export const remove = createAsyncThunk(
   'employees/remove',
-  async (newList, thunkAPI) => {
-    const { userData } = thunkAPI.getState().login;
-    const url = 'http://localhost:5000/accounts/'+userData.id;
-    console.log(newList);
+  async (id, thunkAPI) => {
+    const url = 'http://localhost:5000/employees/'+id;
     try {
-      await axios.patch(url, { list: newList });
+      await axios.delete(url);
       thunkAPI.dispatch(setTaskRemovedTemporary(true));
       setTimeout(() => {
         thunkAPI.dispatch(setTaskRemovedTemporary(false));
