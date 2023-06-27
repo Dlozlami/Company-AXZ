@@ -1,5 +1,3 @@
-
-import axios from "axios";
 import React, { useState } from "react";
 import { addUser } from '../features/register/registerSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -83,6 +81,12 @@ export default function Register() {
     document.getElementById("addEmployeeBTN").disabled = false;
   }
 
+  const checkEmail = (event)=>{
+    let email = (event.target.value).split(' ')[0];
+    // eslint-disable-next-line
+    var newRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+    email.match(newRegex)?document.getElementById("invalidEmail").style.display="none":document.getElementById("invalidEmail").style.display="inline";
+  }
 
   return (
     <div className="flexHorizontal w3-card-4 w3- -large" style={{width:'95vw',height:'80vh',marginBottom:'5vh'}}>
@@ -98,8 +102,8 @@ export default function Register() {
         <input type="text" id="surname" />
         <br /><br />
         <label htmlFor="email">Email</label>
-        <input type="email" id="email" />
-        <br /><br />
+        <input type="email" id="email" onChange={(e) => checkEmail(e)}/>
+        <br /><span className="w3-text-red" id="invalidEmail" style={{display:'none'}}>* This is not a valid email address.</span><br />
         <label htmlFor="bio">Password</label>
         <input type="password" id="pwd" />
         <br /><br />
