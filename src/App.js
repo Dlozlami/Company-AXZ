@@ -2,14 +2,14 @@ import './App.css';
 import Navbar from './components/navBar';
 import Home from './components/home';
 import Login from './components/loginPage';
-import Employees from './components/displayEmployees';
+import Employees from './components/employees';
 import NoPage from './components/noPage';
 import Register from './components/register';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 export default function App() {
-  const {validPwd} = useSelector((store)=>store.login);
+  const {isLoggedIn} = useSelector((store)=>store.login);
   return (
     <div className="App">
       <Routes>
@@ -18,7 +18,7 @@ export default function App() {
           <Route path="Login" element={<Login />}/>
           <Route path="Register" element={<Register />} />
           <Route path="Employees" element={
-            validPwd?
+            isLoggedIn?
             <Employees  />
             :
             <Navigate to="/"/>

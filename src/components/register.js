@@ -74,7 +74,7 @@ export default function Register() {
     document.getElementById("surname").value='';
     document.getElementById("email").value='';
     document.getElementById("bio").value='';
-    document.getElementById("birthday").value='';
+    document.getElementById("pic").value='';
     document.getElementById("birthday").value='';
     document.getElementById("position").value='';
     document.getElementById("phone").value='';

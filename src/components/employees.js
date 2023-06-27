@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
-//eslint-disable-next-line
 import { useDispatch, useSelector } from 'react-redux';
+//import {getData} from '../features/login/loginSlice'
 
 
-export default function DisplayEmployees({whosOnDisplay,setWhosOnDisplay}){
+export default function Employees(){
     const [selectedImage, setSelectedImage] = useState(null);
+    // eslint-disable-next-line
     const {userData} = useSelector((store)=>store.login);
-    //eslint-disable-next-line
-    let url;
+    // eslint-disable-next-line
+    const dispatch = useDispatch();
 
     const handleImageUpload = (event) => {
       
       const file = event.target.files[0];
-      url = URL.createObjectURL(file);
+      //let url = URL.createObjectURL(file);
       const photoReader = new FileReader();  
       console.log("1 State: "+photoReader.readyState);
 
@@ -29,7 +30,7 @@ export default function DisplayEmployees({whosOnDisplay,setWhosOnDisplay}){
   
     };
     //eslint-disable-next-line
-    const [employees, setEmployees] = useState([]);
+
     const [isPopupOpen, setPopupOpen] = useState(false);
     const [inputValues, setInputValues] = useState({
         id:"",
@@ -44,24 +45,23 @@ export default function DisplayEmployees({whosOnDisplay,setWhosOnDisplay}){
       });
 
     const [employeeListReload, setEmployeeListReload] = useState(false);
-
+    const [employees, setEmployees] = useState([]);
 
     //GET DATA OUT OF JSON SERVER===============
+
     const getData = () => {
-      axios.get("http://localhost:5000/accounts/" + userData.id)
+      axios.get("http://localhost:5000/employees/")
         .then(function (result) {
-            console.log(inputValues.list);
-          setInputValues(result.data);
+          setEmployees(result.data.employees);
         })
         .catch(function (error) {
           console.log(error);
         });
-}
+    }
 
-useEffect(() => {
-    getData();
-    // eslint-disable-next-line
-}, [employeeListReload]);
+    useEffect(() => {
+        getData();
+    },);
     
     //=========================================
 

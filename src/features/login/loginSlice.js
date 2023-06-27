@@ -17,7 +17,24 @@ const initialState = {
   validPwd: true,
   validUsername: true,
   isLoggedIn:false,
+  employees:[]
 };
+
+/*export const getData = createAsyncThunk(
+  'login/getData',
+  async (args,thunkAPI) => {
+    const url = `http://localhost:5000/employees/`;
+    try {
+      const resp = await axios.get(url);
+      thunkAPI.dispatch(setEmployees(resp.data.employees));
+      
+    } 
+    catch (error) {
+      console.log("Oh nooo");
+      return thunkAPI.rejectWithValue('something went wrong');
+    }
+  }
+);*/
 
 export const validateUser = createAsyncThunk(
   'login/validateUser',
@@ -69,6 +86,7 @@ const loginSlice = createSlice({
         phone: "",
       };
       state.isLoggedIn = false;
+      state.employees =[];
     },
 
     setValidPwd: (state, { payload }) => {
@@ -83,6 +101,11 @@ const loginSlice = createSlice({
       state.isLoggedIn = payload;
     },
 
+    setEmployees: (state, { payload }) => {
+      state.employees = payload;
+      console.log(state.employees);
+    },
+    
   },
 
   extraReducers: (builder) => {
@@ -100,7 +123,8 @@ export const {
   setIsLoggedIn,
   clearState,
   setValidPwd,
-  setValidUsername, 
+  setValidUsername,
+  setEmployees, 
 } = loginSlice.actions;
 
 export default loginSlice.reducer;
