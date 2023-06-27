@@ -3,13 +3,16 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
   userData: {
-    id: "",
+    id:"",
     password: "",
     name: "",
     surname: "",
     email: "",
+    bio: "",
+    pic: "",
+    birthday: "",
+    position: "",
     phone: "",
-    list: [],
   },
   validPwd: true,
   validUsername: true,
@@ -52,13 +55,16 @@ const loginSlice = createSlice({
   reducers: {
     clearState: (state, { payload }) => {
       state.userData = {
-        id: "",
+        id:"",
         password: "",
         name: "",
         surname: "",
         email: "",
+        bio: "",
+        pic: "",
+        birthday: "",
+        position: "",
         phone: "",
-        list: [],
       };
     },
 

@@ -48,7 +48,7 @@ app.get('/employees/:id', function (req, res) {
 
 app.post('/employees', function (req, res) {
   const newAccount = req.body;
-
+  console.log(newAccount);
   // Assign the existing ID from req.body as the account ID
   const accountId = newAccount.id;
 

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
+//eslint-disable-next-line
+import { useDispatch, useSelector } from 'react-redux';
 
-//This component will known as State 2
 
 export default function DisplayEmployees({whosOnDisplay,setWhosOnDisplay}){
     const [selectedImage, setSelectedImage] = useState(null);
+    const {userData} = useSelector((store)=>store.login);
     //eslint-disable-next-line
     let url;
 
@@ -26,7 +28,7 @@ export default function DisplayEmployees({whosOnDisplay,setWhosOnDisplay}){
       };
   
     };
-    
+    //eslint-disable-next-line
     const [employees, setEmployees] = useState([]);
     const [isPopupOpen, setPopupOpen] = useState(false);
     const [inputValues, setInputValues] = useState({
@@ -43,26 +45,23 @@ export default function DisplayEmployees({whosOnDisplay,setWhosOnDisplay}){
 
     const [employeeListReload, setEmployeeListReload] = useState(false);
 
-    const changeDisplay = ()=>{
-        setWhosOnDisplay(1);
-    };
 
     //GET DATA OUT OF JSON SERVER===============
     const getData = () => {
-      let requestOptions = {
-        method: "GET",
-        redirect: "follow"
-      };
-    
-      fetch("http://localhost:5000/employees/", requestOptions)
-        .then((response) => response.json())
-        .then((result) => setEmployees(result))
-        .catch((error) => console.log("error", error));
-    };
-    
-    useEffect(() => {
-      getData();
-    }, [employeeListReload]);
+      axios.get("http://localhost:5000/accounts/" + userData.id)
+        .then(function (result) {
+            console.log(inputValues.list);
+          setInputValues(result.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+}
+
+useEffect(() => {
+    getData();
+    // eslint-disable-next-line
+}, [employeeListReload]);
     
     //=========================================
 
@@ -128,7 +127,6 @@ export default function DisplayEmployees({whosOnDisplay,setWhosOnDisplay}){
             <div className="sideArtPanelDisplay">
                 <h1 style={{fontWeight:'900',paddingLeft:"0.5vw",backgroundColor:'black'}}>Show All Employees</h1>
                 <h4 style={{paddingLeft:"0.5vw",backgroundColor:'black'}} >The team leading AXZ to the Future.</h4>
-                <button onClick={changeDisplay} className="limeButton w3-btn w3-border w3-border-black w3-card-4 w3-round-large" style={{marginTop:'30vh'}}>Add a new Employee</button>                
             </div>
             {isPopupOpen?
                 <div className="popup" style={{width:'50vw',padding:'10px',overflow:'auto'}}>
