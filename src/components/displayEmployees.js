@@ -5,6 +5,7 @@ import axios from "axios";
 
 export default function DisplayEmployees({whosOnDisplay,setWhosOnDisplay}){
     const [selectedImage, setSelectedImage] = useState(null);
+    //eslint-disable-next-line
     let url;
 
     const handleImageUpload = (event) => {
@@ -98,7 +99,6 @@ export default function DisplayEmployees({whosOnDisplay,setWhosOnDisplay}){
       }
 
     const add = () => {
-        console.log("I patch the entry, add()");
         axios.patch("http://localhost:4000/Employees/"+inputValues.id, inputValues)
         .then(response => console.log(response.data))
         .catch(error => console.error(error));
