@@ -54,7 +54,7 @@ export default function DisplayEmployees({whosOnDisplay,setWhosOnDisplay}){
         redirect: "follow"
       };
     
-      fetch("http://localhost:4000/Employees", requestOptions)
+      fetch("http://localhost:5000/employees/", requestOptions)
         .then((response) => response.json())
         .then((result) => setEmployees(result))
         .catch((error) => console.log("error", error));
@@ -68,7 +68,7 @@ export default function DisplayEmployees({whosOnDisplay,setWhosOnDisplay}){
 
     //REMOVE AN EMPLOYEE FROM THE JSON SERVER
     const remove = (emp_num)=>{
-        axios.delete("http://localhost:4000/Employees/"+emp_num)
+        axios.delete("http://localhost:5000/employees/"+emp_num)
         .then(response => {
         console.log(response.data);
         setEmployeeListReload(!employeeListReload);
@@ -99,7 +99,7 @@ export default function DisplayEmployees({whosOnDisplay,setWhosOnDisplay}){
       }
 
     const add = () => {
-        axios.patch("http://localhost:4000/Employees/"+inputValues.id, inputValues)
+        axios.patch("http://localhost:5000/employees/"+inputValues.id, inputValues)
         .then(response => console.log(response.data))
         .catch(error => console.error(error));
         setEmployeeListReload(!employeeListReload);

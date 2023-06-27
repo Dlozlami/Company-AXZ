@@ -71,16 +71,12 @@ export default function AddEmployee({whosOnDisplay,setWhosOnDisplay}) {
       });
   };
 
-  const showAll = ()=>{
-    setWhosOnDisplay(2);
-  };
 
   return (
     <div className="flexHorizontal w3-card-4 w3- -large" style={{width:'95vw',height:'80vh',marginBottom:'5vh'}}>
       <div className="sideArtPanelAdd">
         <h1 style={{fontWeight:'900',paddingLeft:"0.5vw",backgroundColor:'black'}}>Welcome to AXZ</h1>
         <h4 style={{paddingLeft:"0.5vw",backgroundColor:'black'}}>Add a new employee</h4>
-        <button onClick={showAll} className="limeButton w3-btn w3-border w3-border-black w3-round-large" style={{marginTop:'30vh'}}>Display All Employees</button>
       </div>
       <div className="formStyles" style={{overflow:'auto'}}>
         <label htmlFor="name">Name</label>

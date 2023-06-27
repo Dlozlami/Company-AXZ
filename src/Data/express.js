@@ -11,7 +11,7 @@ app.use(morgan("tiny"))
 
 let jsonData;
 // Read JSON file
-fs.readFile('expressDB.json', 'utf8', (err, data) => {
+fs.readFile('employeesDB.json', 'utf8', (err, data) => {
     if (err) {
       
       console.error(err);
@@ -23,18 +23,18 @@ fs.readFile('expressDB.json', 'utf8', (err, data) => {
 });
 
 
-// Handling GET /accounts Request
-app.get('/accounts', function (req, res) {
+// Handling GET /employees Request
+app.get('/employees', function (req, res) {
     res.json(jsonData);
 });
 
 
-// Handling GET /accounts/id Request
-app.get('/accounts/:id', function (req, res) {
+// Handling GET /employees/id Request
+app.get('/employees/:id', function (req, res) {
     const accountId = req.params.id;
     
     // Find the account with the matching ID
-    const account = jsonData.accounts.find((acc) => acc.id === accountId);
+    const account = jsonData.employees.find((acc) => acc.id === accountId);
   
     if (!account) {
       // If the account is not found, send a 404 error response
@@ -46,17 +46,17 @@ app.get('/accounts/:id', function (req, res) {
 });
 
 
-app.post('/accounts', function (req, res) {
+app.post('/employees', function (req, res) {
   const newAccount = req.body;
 
   // Assign the existing ID from req.body as the account ID
   const accountId = newAccount.id;
 
   // Add the new account to the jsonData
-  jsonData.accounts.push(newAccount);
+  jsonData.employees.push(newAccount);
 
   // Write the updated JSON data back to the file
-  fs.writeFile('expressDB.json', JSON.stringify(jsonData), 'utf8', (err) => {
+  fs.writeFile('employeesDB.json', JSON.stringify(jsonData), 'utf8', (err) => {
     if (err) {
       console.error(err);
       res.status(500).json({ error: 'Failed to add account' });
@@ -67,12 +67,12 @@ app.post('/accounts', function (req, res) {
 });
 
 
-app.patch('/accounts/:id', function (req, res) {
+app.patch('/employees/:id', function (req, res) {
   const accountId = req.params.id;
   const newData = req.body;
 
   // Find the index of the account with the matching ID
-  const accountIndex = jsonData.accounts.findIndex((acc) => acc.id === accountId);
+  const accountIndex = jsonData.employees.findIndex((acc) => acc.id === accountId);
 
   if (accountIndex === -1) {
     // If the account is not found, send a 404 error response
@@ -80,16 +80,16 @@ app.patch('/accounts/:id', function (req, res) {
   }
 
   // Retrieve the original account object
-  const originalAccount = jsonData.accounts[accountIndex];
+  const originalAccount = jsonData.employees[accountIndex];
 
   // Merge the original account object with the new data
   const updatedAccount = { ...originalAccount, ...newData };
 
   // Update the account in the JSON data
-  jsonData.accounts[accountIndex] = updatedAccount;
+  jsonData.employees[accountIndex] = updatedAccount;
 
   // Write the updated JSON data back to the file
-  fs.writeFile('expressDB.json', JSON.stringify(jsonData), 'utf8', (err) => {
+  fs.writeFile('employeesDB.json', JSON.stringify(jsonData), 'utf8', (err) => {
     if (err) {
       console.error(err);
       return res.status(500).json({ error: 'Failed to update account' });
@@ -101,21 +101,21 @@ app.patch('/accounts/:id', function (req, res) {
 
 
 
-app.delete('/accounts/:id', function (req, res) {
+app.delete('/employees/:id', function (req, res) {
   const accountId = req.params.id;
 
   // Find the index of the account with the matching ID
-  const accountIndex = jsonData.accounts.findIndex((acc) => acc.id === accountId);
+  const accountIndex = jsonData.employees.findIndex((acc) => acc.id === accountId);
 
   if (accountIndex === -1) {
     // If the account is not found, send a 404 error response
     res.status(404).json({ error: 'Account not found' });
   } else {
     // Remove the account from the jsonData
-    jsonData.accounts.splice(accountIndex, 1);
+    jsonData.employees.splice(accountIndex, 1);
 
     // Write the updated JSON data back to the file
-    fs.writeFile('expressDB.json', JSON.stringify(jsonData), 'utf8', (err) => {
+    fs.writeFile('employeesDB.json', JSON.stringify(jsonData), 'utf8', (err) => {
       if (err) {
         console.error(err);
         res.status(500).json({ error: 'Failed to delete account' });

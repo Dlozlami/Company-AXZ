@@ -2,6 +2,7 @@
   "employees": [
     {
       "id": "AXZ00516",
+      "password":"12345",
       "name": "Dlozi",
       "surname": "Mthethwa",
       "email": "dlozi.mthethwa@gmail.com",
