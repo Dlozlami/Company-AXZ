@@ -68,6 +68,12 @@ nav div button{
     cursor: pointer;
 }
 
+#logoTitle{
+    font-size: xx-large;
+    font-weight: 500;
+    font-family: commando;
+}
+
 #logo{
     /* align-self: start; */
     background-color: black;
