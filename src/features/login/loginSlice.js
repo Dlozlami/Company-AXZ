@@ -43,7 +43,8 @@ export const validateUser = createAsyncThunk(
     try {
       const resp = await axios.get(url);
       // Retrieve the stored password from the response data
-      const storedPassword = resp.data.password;
+      const storedPassword = resp.data[0].password;
+      //console.log(resp.data[0]);
       thunkAPI.dispatch(setValidUsername(true));
       // Compare the password provided by the user with the stored password
       if (password !== storedPassword) {
@@ -57,7 +58,7 @@ export const validateUser = createAsyncThunk(
       thunkAPI.dispatch(setIsLoggedIn(true));
       //thunkAPI.dispatch(setIsLoggedIn(true));
       // Make the API request if the password is valid
-      return resp.data;
+      return resp.data[0];
     } 
     
     catch (error) {

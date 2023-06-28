@@ -4,6 +4,7 @@ const employeeData = new mongoose.Schema(
 	{
 		emp_num:  { type: String, required: true, unique: true},
         name: { type: String, required: true },
+		surname: { type: String, required: true },
 		email: { type: String, required: true,},
 		password: { type: String, required: true },
 		bio: { type: String },

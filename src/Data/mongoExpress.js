@@ -44,6 +44,7 @@ app.post('/employees', async function (req, res) {
         const newEmployee = await Employee.create({
             emp_num: newAccount.id,
             name: newAccount.name,
+            surname: newAccount.name,
             email: newAccount.email,
             password: newAccount.password,
             bio: newAccount.bio,
@@ -81,15 +82,26 @@ app.patch('/employees/:id', function (req, res) {
 
 
 
-app.delete('/employees/:id', function (req, res) {
+  app.delete('/employees/:id', function (req, res) {
     const accountId = req.params.id;
-
-
+  
+    Employee.findOneAndDelete({ emp_num: accountId })
+      .then((employee) => {
+        if (employee) {
+          res.send('Employee deleted successfully');
+        } else {
+          res.status(404).send('Employee not found');
+        }
+      })
+      .catch((err) => {
+        res.status(500).send(err);
+      });
 });
 
 
 
-// Listening to server at port 4000
-app.listen(4000, function () {
-	console.log("server started...\nClick the url to gain access: http://localhost:4000/");
+
+// Listening to server at port 5000
+app.listen(5000, function () {
+	console.log("server started...\nClick the url to gain access: http://localhost:5000/");
 })

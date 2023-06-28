@@ -34,6 +34,7 @@ export default function Employees(){
     const [isPopupOpen, setPopupOpen] = useState(false);
     const [inputValues, setInputValues] = useState({
         id:"",
+        emp_num:"",
         name: "",
         surname: "",
         email: "",
@@ -42,6 +43,7 @@ export default function Employees(){
         birthday: "",
         position: "",
         phone: "",
+        v: "",
       });
 
     const [employeeListReload, setEmployeeListReload] = useState(false);
@@ -52,7 +54,8 @@ export default function Employees(){
     const getData = () => {
       axios.get("http://localhost:5000/employees/")
         .then(function (result) {
-          setEmployees(result.data.employees);
+          setEmployees(result.data);
+          //console.log(result.data);
         })
         .catch(function (error) {
           console.log(error);
@@ -61,7 +64,7 @@ export default function Employees(){
 
     useEffect(() => {
         getData();
-    },);
+    },[]);
     
     //=========================================
 
@@ -84,7 +87,7 @@ export default function Employees(){
     const update = (employee)=>{
         setPopupOpen(true);
         setInputValues({
-            id:employee.id,
+            id:employee.emp_num,
             name: employee.name,
             surname: employee.surname,
             email: employee.email,
@@ -140,11 +143,11 @@ export default function Employees(){
                 :
                 <div id='employeeList' className="flexVertical" style={{width:'50vw',overflow:'auto',padding:'10px'}}>
                     {employees.map((employees) => (
-                    <div key={employees.id} className='profile w3-panel w3-white w3-round-large' style={{padding:'10px',alignItems:'center'}}>
+                    <div key={employees._id} className='profile w3-panel w3-white w3-round-large' style={{padding:'10px',alignItems:'center'}}>
                         <div style={{width:'20vw'}}><img src={employees.pic} alt={employees.name} className='pic'></img></div>
                         <div style={{width:'63vw'}}>
                           <span style={{fontWeight:'700',marginRight:'2vw'}}>  {employees.name} {employees.surname}</span> <span style={{color:'gray'}}>{employees.position}</span><br/>
-                          <span className='additionalInfo' style={{color:'gray',fontSize:'small'}}>Employees ID: {employees.id} &bull; D.O.B: {employees.birthday}</span> 
+                          <span className='additionalInfo' style={{color:'gray',fontSize:'small'}}>Employees ID: {employees.emp_num} &bull; D.O.B: {employees.birthday}</span> 
                           <p className='bio'>{employees.bio}</p>
                           <span className='additionalInfo'>&#x2709; {employees.email}</span> <span className='additionalInfo'> &bull; &#x260F; {employees.phone}</span> 
                         </div>
