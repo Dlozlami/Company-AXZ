@@ -5,8 +5,7 @@ import jwt_decode from 'jwt-decode';
 
 const initialState = {
   userData: {
-    id:"",
-    password: "",
+    emp_num:"",
     name: "",
     surname: "",
     email: "",
@@ -24,36 +23,31 @@ const initialState = {
 
 export const setLogin = createAsyncThunk(
   'login/setLogin',
-  async ([username, password],thunkAPI) => {
+  async ([username, password], thunkAPI) => {
     const url = `http://localhost:5000/employees/login/`;
     try {
-      const resp = await axios.post(url, {username:username,password:password});
-      // Retrieve the stored password from the response data
+      const resp = await axios.post(url, { username: username, password: password });
 
-      const storedPassword = resp.data[0].password;
+      const token = resp.data.token; // Extract the token from the response
 
+      localStorage.setItem('axzjwtUser', token); // Store the token in local storage
+
+      const decodedToken = jwt_decode(token); // Decode the token to extract the user data
+      console.log(decodedToken);
       thunkAPI.dispatch(setValidUsername(1));
-
-      // Compare the password provided by the user with the stored password
-      if (password !== storedPassword) {
-        thunkAPI.dispatch(setValidPwd(2));
-        return;
-      }
-
       thunkAPI.dispatch(setValidPwd(1));
-      thunkAPI.dispatch(setUserData(resp.data[0]));
+      thunkAPI.dispatch(setUserData(decodedToken)); // Set the user data in the state
       thunkAPI.dispatch(setIsLoggedIn(true));
-
       return;
-    } 
-    
-    catch (error) {
+
+    } catch (error) {
       thunkAPI.dispatch(setValidUsername(2));
       thunkAPI.dispatch(setValidPwd(0));
-      return thunkAPI.rejectWithValue('something went wrong');
+      return thunkAPI.rejectWithValue('Something went wrong');
     }
   }
 );
+
 
 
 
@@ -76,7 +70,7 @@ const loginSlice = createSlice({
         phone: "",
       };
       state.isLoggedIn = false;
-      state.employees =[];
+      localStorage.removeItem('axzjwtUser');
     },
 
     setValidPwd: (state, { payload }) => {

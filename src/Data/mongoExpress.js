@@ -12,13 +12,25 @@ app.use(express.json());
 app.use(morgan("tiny"))
 
 
-const generateSecretKey = () => {
-  return crypto.randomBytes(32).toString('hex');
-};
+const secretKey = '4f+7errqerqer742ereewqet42t4rg564ryt3+67+651wqrqrqr414r[w0-iiwqokweidg8wqj2pss9tffb96ywaxboi-=[;k28uw4rq4ewfrqf+q';
 
 mongoose.connect('mongodb://127.0.0.1:27017/company-axz')
 
-
+app.get('/employees/', function (req, res) {
+  const accountId = req.params.id;
+  
+  Employee.find({})
+      .then((employee) => {
+          if (employee) {
+              res.send(employee);
+          } else {
+              res.status(404).send('Employee not found');
+          }
+      })
+      .catch((err) => {
+          res.status(500).send(err);
+      });
+});
 
 app.post('/employees/login', function (req, res) {
   const accountId = req.body.username;
@@ -48,14 +60,14 @@ app.post('/employees/login', function (req, res) {
           position: employee.position,
           phone:employee.phone
         },
-        generateSecretKey,
+        secretKey,
         { expiresIn: '1h' } // Set the token expiration time
       );
 
       res.json({ token }); // Return the token to the client
     })
     .catch((err) => {
-      res.status(500).send(err);
+      res.status(500).send("Errror here");
     });
 });
 

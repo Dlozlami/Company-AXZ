@@ -1,11 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
-// eslint-disable-next-line
-import {setLogin,clearState} from '../features/login/loginSlice';
+import {setLogin,clearState,setUserData,setIsLoggedIn} from '../features/login/loginSlice';
 import { useNavigate } from 'react-router-dom';
+import jwt_decode from 'jwt-decode';
+import { useEffect } from 'react';
 
 export default function LoginPage()
 {
-    // eslint-disable-next-line
+
     const {userData,validPwd,validUsername,isLoggedIn} = useSelector((store)=>store.login);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -39,7 +40,18 @@ export default function LoginPage()
                     <br /><button className="limeButton w3-btn w3-border w3-border-black w3-round-large" onClick={(e) => dispatch(setLogin(grabInputs()))} style={{marginRight:"2vw"}}>Log in</button> <button className="limeButton w3-btn w3-border w3-border-black w3-round-large" onClick={() => navigate('/Register')}>Register</button>
                 </div>
             </div>
-        </div>)
+        </div>);
+    
+    useEffect(() => {
+        const token = localStorage.getItem('axzjwtUser');
+        if (token) {
+          // If token is present, dispatch setUserData action with the decoded token
+          const decodedToken = jwt_decode(token);
+          dispatch(setUserData(decodedToken));
+          dispatch(setIsLoggedIn(true));
+        }
+      }, [dispatch]);
+
     return(<>{isLoggedIn? printWelcome() : printForm()}
 </>);
 }
