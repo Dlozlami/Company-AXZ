@@ -4,7 +4,7 @@ import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
 
 
 const initialState = {
-
+  allEmployees:[],
 }
 
 export const updateList = createAsyncThunk(
@@ -42,7 +42,7 @@ const employeesSlice = createSlice({
     }
 });
 
-//console.log(loginSlice);
+
 
 
 export default employeesSlice.reducer;

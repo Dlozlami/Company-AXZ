@@ -16,18 +16,18 @@ export default function LoginPage()
     }
     
     const printWelcome =()=>
-    (   <div style={{width:'90vw',height:'80vh'}}>
-            <div className=" w3-card-4 w3-round-large w3-white w3-display-middle" style={{padding:'20px',width:'30vw'}}>
-            <h1 style={{fontWeight:'500',color:'#d2ff58'}}>Welcome, {userData.name}!</h1>
+    (   <div style={{width:'95vw',height:'85vh',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
+            <div className=" w3-card-4 w3-round-large w3-white" style={{padding:'20px',width:'30vw'}}>
+            <h1 style={{fontWeight:'500',color:'darkGray'}}>Welcome, {userData.name}!</h1>
                 <button className="limeButton w3-btn w3-border w3-border-black w3-round-large" onClick={() => dispatch(clearState())}>log out</button>
             </div>
         </div>);
 
     const printForm =()=>
         (
-        <div style={{width:'90vw',height:'80vh'}}>
-            <div className=" w3-card-4 w3-round-large w3-white w3-display-middle" style={{padding:'20px',width:'30vw'}}>
-                <h1 style={{fontWeight:'500',color:'#d2ff58'}}>Log in</h1>
+        <div style={{width:'95vw',height:'85vh',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
+            <div className=" w3-card-4 w3-round-large w3-white" style={{padding:'20px',width:'30vw'}}>
+                <h1 style={{fontWeight:'500',color:'darkGray'}}>Log in</h1>
                 <div>
                     <label htmlFor="id" >Username</label><br />
                     <input type="text" id="id" className="w3-round"/> 

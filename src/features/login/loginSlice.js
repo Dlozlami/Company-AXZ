@@ -17,7 +17,7 @@ const initialState = {
   validPwd: 0,
   validUsername: 0,
   isLoggedIn:false,
-  employees:[]
+
 };
 
 export const setLogin = createAsyncThunk(
@@ -114,11 +114,6 @@ const loginSlice = createSlice({
     setIsLoggedIn: (state, { payload }) => {
       state.isLoggedIn = payload;
     },
-
-    setEmployees: (state, { payload }) => {
-      state.employees = payload;
-      console.log(state.employees);
-    },
     
   },
 
@@ -137,8 +132,7 @@ export const {
   setIsLoggedIn,
   clearState,
   setValidPwd,
-  setValidUsername,
-  setEmployees, 
+  setValidUsername 
 } = loginSlice.actions;
 
 export default loginSlice.reducer;

@@ -87,7 +87,7 @@ export default function Employees(){
     }
 
     return (
-        <div className="flexHorizontal w3-card-4 w3-round-large" style={{width:'95vw',height:'80vh',backgroundColor:'#f7f7f7'}}>
+        <div className="flexHorizontal w3-card-4 w3-round-large" style={{width:'95vw',height:'85vh',backgroundColor:'#f7f7f7'}}>
             <div className="sideArtPanelDisplay">
                 <h1 style={{fontWeight:'900',paddingLeft:"0.5vw",backgroundColor:'black'}}>Show All Employees</h1>
                 <h4 style={{paddingLeft:"0.5vw",backgroundColor:'black'}} >The team leading AXZ to the Future.</h4>
