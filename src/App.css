@@ -116,6 +116,7 @@ input{
     background-color: transparent;
     border: none;
     border-bottom: 1px black solid;
+    padding-left: 1vw;
 }
 
 .limeButton{

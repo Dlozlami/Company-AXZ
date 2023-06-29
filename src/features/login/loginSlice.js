@@ -14,29 +14,44 @@ const initialState = {
     position: "",
     phone: "",
   },
-  validPwd: true,
-  validUsername: true,
+  validPwd: 0,
+  validUsername: 0,
   isLoggedIn:false,
   employees:[]
 };
 
-/*export const getData = createAsyncThunk(
-  'login/getData',
-  async (args,thunkAPI) => {
-    const url = `http://localhost:5000/employees/`;
+export const setLogin = createAsyncThunk(
+  'login/setLogin',
+  async ([username, password],thunkAPI) => {
+    const url = `http://localhost:5000/employees/login/`;
     try {
-      const resp = await axios.get(url);
-      thunkAPI.dispatch(setEmployees(resp.data.employees));
-      
+      const resp = await axios.post(url, {username:username,password:password});
+      // Retrieve the stored password from the response data
+
+      const storedPassword = resp.data[0].password;
+
+      thunkAPI.dispatch(setValidUsername(1));
+
+      // Compare the password provided by the user with the stored password
+      if (password !== storedPassword) {
+        thunkAPI.dispatch(setValidPwd(2));
+        return;
+      }
+
+      thunkAPI.dispatch(setValidPwd(1));
+      thunkAPI.dispatch(setIsLoggedIn(true));
+
+      return resp.data[0];
     } 
+    
     catch (error) {
-      console.log("Oh nooo");
+      thunkAPI.dispatch(setValidUsername(2));
       return thunkAPI.rejectWithValue('something went wrong');
     }
   }
-);*/
+);
 
-export const validateUser = createAsyncThunk(
+/*export const validateUser = createAsyncThunk(
   'login/validateUser',
   async ([username, password], thunkAPI) => {
     const url = `http://localhost:5000/employees/${username}`;
@@ -44,29 +59,27 @@ export const validateUser = createAsyncThunk(
       const resp = await axios.get(url);
       // Retrieve the stored password from the response data
       const storedPassword = resp.data[0].password;
-      //console.log(resp.data[0]);
-      thunkAPI.dispatch(setValidUsername(true));
+
+      thunkAPI.dispatch(setValidUsername(1));
+
       // Compare the password provided by the user with the stored password
       if (password !== storedPassword) {
-        // Update the state to indicate an invalid password
-        thunkAPI.dispatch(setValidPwd(false));
-        
-        // Return early or perform additional logic if needed
+        thunkAPI.dispatch(setValidPwd(2));
         return;
       }
-      thunkAPI.dispatch(setValidPwd(true));
+
+      thunkAPI.dispatch(setValidPwd(1));
       thunkAPI.dispatch(setIsLoggedIn(true));
-      //thunkAPI.dispatch(setIsLoggedIn(true));
-      // Make the API request if the password is valid
+
       return resp.data[0];
     } 
     
     catch (error) {
-      thunkAPI.dispatch(setValidUsername(false));
+      thunkAPI.dispatch(setValidUsername(2));
       return thunkAPI.rejectWithValue('something went wrong');
     }
   }
-);
+);*/
 
 const loginSlice = createSlice({
   name: 'login',
@@ -111,7 +124,7 @@ const loginSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
-      .addCase(validateUser.fulfilled, (state, action) => {
+      .addCase(setLogin.fulfilled, (state, action) => {
         console.log(action);
         state.userData = action.payload;
 

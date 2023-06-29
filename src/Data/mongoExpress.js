@@ -4,6 +4,7 @@ const cors = require('cors');
 const morgan = require("morgan");
 const mongoose = require('mongoose');
 const Employee = require('../models/employee.model');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 app.use(cors());
@@ -15,7 +16,23 @@ mongoose.connect('mongodb://127.0.0.1:27017/company-axz')
 
 
 app.get('/employees', function (req, res) {
-    Employee.find({}).then((users)=>{res.send(users);}).catch((err)=>{res.status(500).send(err);})
+  Employee.find({}).then((users)=>{res.send(users);}).catch((err)=>{res.status(500).send(err);})
+});
+
+app.post('/employees/login', function (req, res) {
+  const accountId = req.body.username;
+    
+  Employee.find({emp_num:accountId})
+      .then((employee) => {
+          if (employee) {
+              res.send(employee);
+          } else {
+              res.status(404).send('Employee not found');
+          }
+      })
+      .catch((err) => {
+          res.status(500).send(err);
+      });
 });
 
 
