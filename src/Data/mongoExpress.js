@@ -37,7 +37,17 @@ app.post('/employees/login', function (req, res) {
 
       // Create and sign a JSON Web Token (JWT)
       const token = jwt.sign(
-        { emp_num: employee.emp_num, name: employee.name },
+        { emp_num: employee.emp_num, 
+          name: employee.name ,
+          surname:employee.surname,
+          email:employee.email,
+          password: employee.password,
+		      bio: employee.bio,
+          pic: employee.pic,
+          birthday:employee.birthday,
+          position: employee.position,
+          phone:employee.phone
+        },
         generateSecretKey,
         { expiresIn: '1h' } // Set the token expiration time
       );

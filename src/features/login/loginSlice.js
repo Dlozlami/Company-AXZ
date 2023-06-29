@@ -1,5 +1,7 @@
 import axios from "axios";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import jwt_decode from 'jwt-decode';
+
 
 const initialState = {
   userData: {
@@ -53,35 +55,7 @@ export const setLogin = createAsyncThunk(
   }
 );
 
-/*export const validateUser = createAsyncThunk(
-  'login/validateUser',
-  async ([username, password], thunkAPI) => {
-    const url = `http://localhost:5000/employees/${username}`;
-    try {
-      const resp = await axios.get(url);
-      // Retrieve the stored password from the response data
-      const storedPassword = resp.data[0].password;
 
-      thunkAPI.dispatch(setValidUsername(1));
-
-      // Compare the password provided by the user with the stored password
-      if (password !== storedPassword) {
-        thunkAPI.dispatch(setValidPwd(2));
-        return;
-      }
-
-      thunkAPI.dispatch(setValidPwd(1));
-      thunkAPI.dispatch(setIsLoggedIn(true));
-
-      return resp.data[0];
-    } 
-    
-    catch (error) {
-      thunkAPI.dispatch(setValidUsername(2));
-      return thunkAPI.rejectWithValue('something went wrong');
-    }
-  }
-);*/
 
 const loginSlice = createSlice({
   name: 'login',
