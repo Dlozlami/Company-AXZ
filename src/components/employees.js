@@ -6,8 +6,6 @@ import {updateList,remove}  from '../features/employees/employeesSlice'
 
 export default function Employees(){
     const dispatch = useDispatch();
-    
-    const [selectedImage, setSelectedImage] = useState(null);
     const [employees, setEmployees] = useState([]);
     const [isPopupOpen, setPopupOpen] = useState(false);
     const [inputValues, setInputValues] = useState({
@@ -24,19 +22,23 @@ export default function Employees(){
         v: "",
       });
 
-    const handleImageUpload = (event) => {
-      const file = event.target.files[0];
-      const photoReader = new FileReader();
-    
-      photoReader.onload = () => {
-        setSelectedImage(photoReader.result);
-        console.log();
+      const handleImageUpload = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+          const photoReader = new FileReader();
+      
+          photoReader.onload = () => {
+            const image = photoReader.result;
+            setInputValues((prevInputValues) => ({
+              ...prevInputValues,
+              pic: image,
+            }));
+          };
+      
+          photoReader.readAsDataURL(file);
+        }
       };
-    
-      if (file) {
-        photoReader.readAsDataURL(file);
-      }
-    };
+      
 
     //GET DATA OUT OF JSON SERVER===============
 
@@ -80,7 +82,7 @@ export default function Employees(){
             surname: employee.surname,
             email: employee.email,
             bio: employee.bio,
-            pic: selectedImage,
+            pic: employee.pic,
             birthday: employee.birthday,
             position: employee.position,
             phone: employee.phone,

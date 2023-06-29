@@ -98,7 +98,7 @@ app.post('/employees', async function (req, res) {
         const newEmployee = await Employee.create({
             emp_num: newAccount.id,
             name: newAccount.name,
-            surname: newAccount.name,
+            surname: newAccount.surname,
             email: newAccount.email,
             password: newAccount.password,
             bio: newAccount.bio,
