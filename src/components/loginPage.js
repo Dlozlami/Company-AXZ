@@ -35,7 +35,7 @@ export default function LoginPage()
 
                     <label htmlFor="id">Password</label><br />
                     <input type="password" id="password"  className="w3-round"/>
-                    <br />{validPwd===2?<span className="w3-red">Invalid username</span>:<br />}
+                    <br />{validPwd===2?<span className="w3-red">Invalid password</span>:<br />}<br />
                     <br /><button className="limeButton w3-btn w3-border w3-border-black w3-round-large" onClick={(e) => dispatch(setLogin(grabInputs()))} style={{marginRight:"2vw"}}>Log in</button> <button className="limeButton w3-btn w3-border w3-border-black w3-round-large" onClick={() => navigate('/Register')}>Register</button>
                 </div>
             </div>

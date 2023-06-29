@@ -67,6 +67,7 @@ export default function Employees(){
 
     const add = () => {
         dispatch(updateList(inputValues));
+        getData();
         setPopupOpen(false);
       };
     

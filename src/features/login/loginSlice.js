@@ -39,13 +39,15 @@ export const setLogin = createAsyncThunk(
       }
 
       thunkAPI.dispatch(setValidPwd(1));
+      thunkAPI.dispatch(setUserData(resp.data[0]));
       thunkAPI.dispatch(setIsLoggedIn(true));
 
-      return resp.data[0];
+      return;
     } 
     
     catch (error) {
       thunkAPI.dispatch(setValidUsername(2));
+      thunkAPI.dispatch(setValidPwd(0));
       return thunkAPI.rejectWithValue('something went wrong');
     }
   }
@@ -114,17 +116,13 @@ const loginSlice = createSlice({
     setIsLoggedIn: (state, { payload }) => {
       state.isLoggedIn = payload;
     },
+
+    setUserData: (state, { payload }) => {
+      state.userData = payload;
+    },
     
   },
 
-  extraReducers: (builder) => {
-    builder
-      .addCase(setLogin.fulfilled, (state, action) => {
-        console.log(action);
-        state.userData = action.payload;
-
-      });
-  },
 });
 
 // Include the methods in normal reducers in actions to avoid undefined errors
@@ -132,7 +130,8 @@ export const {
   setIsLoggedIn,
   clearState,
   setValidPwd,
-  setValidUsername 
+  setValidUsername,
+  setUserData
 } = loginSlice.actions;
 
 export default loginSlice.reducer;
