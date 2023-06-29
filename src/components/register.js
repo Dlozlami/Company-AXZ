@@ -122,7 +122,7 @@ export default function Register() {
         <label htmlFor="phone">Phone</label>
         <input type="text" id="phone" />
         <br />
-        {userAdded?<div className="w3-panel w3-green w3-round-small">You have registered successfully!</div>:''}<br />
+        {userAdded?<div className="w3-panel w3-green w3-round-small w3-padding-16">New employee added successfully!</div>:''}<br />
         <button id="addEmployeeBTN" onClick={add} style={{marginRight:'5vw'}} className="limeButton w3-btn w3-border w3-border-black w3-round-large">Add Employee</button> 
       </div>
     </div>

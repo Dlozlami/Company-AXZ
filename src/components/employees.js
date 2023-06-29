@@ -1,35 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch} from 'react-redux';
 import {updateList,remove}  from '../features/employees/employeesSlice'
 
 
 export default function Employees(){
     const [selectedImage, setSelectedImage] = useState(null);
-    // eslint-disable-next-line
-    const {userData} = useSelector((store)=>store.login);
-    // eslint-disable-next-line
     const dispatch = useDispatch();
 
+
+
     const handleImageUpload = (event) => {
-      
       const file = event.target.files[0];
-      //let url = URL.createObjectURL(file);
-      const photoReader = new FileReader();  
-      console.log("1 State: "+photoReader.readyState);
-
+      const photoReader = new FileReader();
+    
       photoReader.onload = () => {
-        photoReader.readAsDataURL(file);
-        console.log("2 State: "+photoReader.readyState);
-      }
-
-      if (file) { 
-        console.log("3 State: "+photoReader.readyState);
         setSelectedImage(photoReader.result);
+        console.log();
       };
-  
+    
+      if (file) {
+        photoReader.readAsDataURL(file);
+      }
     };
-    //eslint-disable-next-line
+    
 
     const [isPopupOpen, setPopupOpen] = useState(false);
     const [inputValues, setInputValues] = useState({
@@ -46,7 +40,7 @@ export default function Employees(){
         v: "",
       });
 
-    const [employeeListReload, setEmployeeListReload] = useState(false);
+
     const [employees, setEmployees] = useState([]);
 
     //GET DATA OUT OF JSON SERVER===============
@@ -55,7 +49,6 @@ export default function Employees(){
       axios.get("http://localhost:5000/employees/")
         .then(function (result) {
           setEmployees(result.data);
-          //console.log(result.data);
         })
         .catch(function (error) {
           console.log(error);
@@ -79,7 +72,6 @@ export default function Employees(){
 
     const add = () => {
         dispatch(updateList(inputValues));
-        setEmployeeListReload(!employeeListReload);
         setPopupOpen(false);
       };
     
@@ -105,8 +97,8 @@ export default function Employees(){
                 <h1 style={{fontWeight:'900',paddingLeft:"0.5vw",backgroundColor:'black'}}>Show All Employees</h1>
                 <h4 style={{paddingLeft:"0.5vw",backgroundColor:'black'}} >The team leading AXZ to the Future.</h4>
             </div>
-            {isPopupOpen?
-                <div className="popup" style={{width:'50vw',padding:'10px',overflow:'auto'}}>
+            
+                <div className="popup" style={isPopupOpen?{width:'50vw',padding:'10px',overflow:'auto'}:{display:'none'}}>
                     <div style={{backgroundColor:'white',padding:'50px',justifyContent:'center',width:'50vw'}}>
                     <label htmlFor="name">Employee Number:</label>
                     <input type="text" id="id"  value={inputValues.id} readOnly/>
@@ -140,14 +132,15 @@ export default function Employees(){
                     </button><br /><br /><br />
                     </div>
                 </div>
-                :
-                <div id='employeeList' className="flexVertical" style={{width:'50vw',overflow:'auto',padding:'10px'}}>
-                    {employees.map((employees) => (
+                
+                <div id='employeeList' className="flexVertical" style={!isPopupOpen?{width:'50vw',overflow:'auto',padding:'10px'}:{display:'none'}}>
+                    {employees.length?employees.map((employees) => (
                     <div key={employees._id} className='profile w3-panel w3-white w3-round-large' style={{padding:'10px',alignItems:'center'}}>
                         <div style={{width:'20vw'}}><img src={employees.pic} alt={employees.name} className='pic'></img></div>
                         <div style={{width:'63vw'}}>
-                          <span style={{fontWeight:'700',marginRight:'2vw'}}>  {employees.name} {employees.surname}</span> <span style={{color:'gray'}}>{employees.position}</span><br/>
+                          <span style={{fontWeight:'700',marginRight:'2vw'}}>  {employees.name} {employees.surname}</span> <span style={{color:'gray'}}> &#128100; {employees.position}</span><br/>
                           <span className='additionalInfo' style={{color:'gray',fontSize:'small'}}>Employees ID: {employees.emp_num} &bull; D.O.B: {employees.birthday}</span> 
+                          <hr/>
                           <p className='bio'>{employees.bio}</p>
                           <span className='additionalInfo'>&#x2709; {employees.email}</span> <span className='additionalInfo'> &bull; &#x260F; {employees.phone}</span> 
                         </div>
@@ -156,9 +149,13 @@ export default function Employees(){
                             <button className='w3-btn w3-white w3-border w3-border-green w3-round-large w3-text-green'  onClick={() => update(employees)}>Update </button>
                         </div>
                     </div>
-                    ))}
+                    ))
+                    :
+                    <div>
+                        There are <b>no employees</b> at this company.<br/>
+                    </div>
+                    }
                 </div>
-            }
       </div>
     );
 }
