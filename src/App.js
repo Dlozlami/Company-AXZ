@@ -21,7 +21,7 @@ export default function App() {
             isLoggedIn?
             <Employees  />
             :
-            <Navigate to="/"/>
+            <Navigate to="/Login"/>
           } />
           <Route path="*" element={<NoPage />} />
         </Route>

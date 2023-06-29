@@ -5,26 +5,10 @@ import {updateList,remove}  from '../features/employees/employeesSlice'
 
 
 export default function Employees(){
-    const [selectedImage, setSelectedImage] = useState(null);
     const dispatch = useDispatch();
-
-
-
-    const handleImageUpload = (event) => {
-      const file = event.target.files[0];
-      const photoReader = new FileReader();
     
-      photoReader.onload = () => {
-        setSelectedImage(photoReader.result);
-        console.log();
-      };
-    
-      if (file) {
-        photoReader.readAsDataURL(file);
-      }
-    };
-    
-
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [employees, setEmployees] = useState([]);
     const [isPopupOpen, setPopupOpen] = useState(false);
     const [inputValues, setInputValues] = useState({
         id:"",
@@ -40,8 +24,19 @@ export default function Employees(){
         v: "",
       });
 
-
-    const [employees, setEmployees] = useState([]);
+    const handleImageUpload = (event) => {
+      const file = event.target.files[0];
+      const photoReader = new FileReader();
+    
+      photoReader.onload = () => {
+        setSelectedImage(photoReader.result);
+        console.log();
+      };
+    
+      if (file) {
+        photoReader.readAsDataURL(file);
+      }
+    };
 
     //GET DATA OUT OF JSON SERVER===============
 
