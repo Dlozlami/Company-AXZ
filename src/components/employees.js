@@ -46,6 +46,7 @@ export default function Employees(){
       axios.get("http://localhost:5000/employees/")
         .then(function (result) {
           setEmployees(result.data);
+          Window.location.reload();
         })
         .catch(function (error) {
           console.log(error);
