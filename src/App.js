@@ -6,11 +6,25 @@ import Employees from './components/employees';
 import NoPage from './components/noPage';
 import Register from './components/register';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-//import { Jwt } from 'jsonwebtoken';
+import { useSelector, useDispatch } from 'react-redux';
+import jwt_decode from 'jwt-decode';
+import { useEffect } from 'react';
+import {setUserData,setIsLoggedIn} from './features/login/loginSlice';
 
 export default function App() {
   const {isLoggedIn} = useSelector((store)=>store.login);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const token = localStorage.getItem('axzjwtUser');
+    if (token) {
+      // If token is present, dispatch setUserData action with the decoded token
+      const decodedToken = jwt_decode(token);
+      dispatch(setUserData(decodedToken));
+      dispatch(setIsLoggedIn(true));
+    }
+  }, [dispatch]);
+
   return (
     <div className="App">
       <Routes>
