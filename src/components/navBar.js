@@ -1,21 +1,25 @@
-export default function Navbar() {
+import { Outlet, Link } from "react-router-dom";
+
+export default function Header({user,setUser}){
     return(
-      <nav>
-        <div style={{width:'60vw'}}>
-            <button id="logo">AXZ</button>
-        </div>
-        <div style={{width:'9.5vw'}}>
-            <button className="w3-btn w3-border w3-border-black w3-round-large">Our Story</button>
-        </div>
-        <div style={{width:'7vw'}}>
-            <button className="w3-btn w3-border w3-border-black w3-round-large">Blog</button>
-        </div>
-        <div style={{width:'8vw'}}>
-            <button className="w3-btn w3-border w3-border-black w3-round-large">Pricing</button>
-        </div>
-        <div style={{width:'10vw'}}>
-            <button className="w3-btn w3-border w3-border-black w3-round-large">Contact us</button>
-        </div>
-      </nav>
+        <>
+        <nav>
+            <div style={{width:'50vw',fontSize:'2.5em',color:'white'}}><button id="logo"><Link to="/"  style={{textDecoration:'none'}}>AXZ</Link></button></div>
+            <button className="w3-btn w3-border w3-border-black w3-card-4 w3-round-large" style={{color:'black'}}>
+              <Link to="/"  style={{textDecoration:'none'}}>Home</Link>
+            </button>
+            <button className="w3-btn w3-border w3-border-black w3-card-4 w3-round-large" style={{color:'black'}}>
+              <Link to="/login"  style={{textDecoration:'none'}}>Log In</Link>
+            </button>
+            <button className="w3-btn w3-border w3-border-black w3-card-4 w3-round-large" style={{color:'black'}}>
+              <Link to="/register"  style={{textDecoration:'none'}}>{user?'Update Profile':'Register'}</Link>
+            </button>
+            <button className="w3-btn w3-border w3-border-black w3-card-4 w3-round-large" style={{color:'black'}}>
+              <Link to="/employees"  style={{textDecoration:'none'}}>Employees</Link>
+            </button>
+        </nav>
+  
+        <Outlet />
+      </>
     );
-  }
+}
