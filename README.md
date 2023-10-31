@@ -17,3 +17,21 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
+## Start the server
+
+Go to the Server directory
+
+```bash
+  cd Server
+```
+Start Express Server
+```bash
+  npx nodemon .\KMH.ENTRY.web-server0.25.js 
+```
+
+
+## Tech Stack
+
+**Client:** React JS, Redux/Toolkit, CSS3
+
+**Server:** Node, Express, MongoDB
