@@ -2,7 +2,7 @@
 
 # Company AXZ
 
-Create a logging system for Company AXZ that records employee details and displays them in a list. The required employee details include name, surname, email address, bio, image, date of birth, employee position, and phone number. Additionally, assign a random employee number to each entry. To save the employee list,an integrated JSON server.
+Create a logging system for Company AXZ that records employee details and displays them in a list. The required employee details include name, surname, email address, bio, image, date of birth, employee position, and phone number. Additionally, assign a random employee number to each entry. To save the employee list,an integrated JSON server is used in the main branch and Express & Redux/Toolkit is used.
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
