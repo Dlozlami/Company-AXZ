@@ -26,7 +26,7 @@ Go to the Server directory
 ```
 Start Express Server
 ```bash
-  npx nodemon .\KMH.ENTRY.web-server0.25.js 
+  npx nodemon .\express.js 
 ```
 
 
