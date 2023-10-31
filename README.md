@@ -1,6 +1,6 @@
 <img src="https://socialify.git.ci/Dlozlami/Company-AXZ/image?language=1&owner=1&name=1&stargazers=1&theme=Light" alt="Company-AXZ" width="640" height="320" />
-# Company AXZ
 
+# Company AXZ
 
 Create a logging system for Company AXZ that records employee details and displays them in a list. The required employee details include name, surname, email address, bio, image, date of birth, employee position, and phone number. Additionally, assign a random employee number to each entry. To save the employee list,an integrated JSON server.
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
