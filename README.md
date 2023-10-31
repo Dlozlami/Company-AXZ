@@ -1,3 +1,4 @@
+<img src="https://socialify.git.ci/Dlozlami/Company-AXZ/image?language=1&owner=1&name=1&stargazers=1&theme=Light" alt="Company-AXZ" width="640" height="320" />
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
